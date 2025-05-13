@@ -11,7 +11,7 @@ public class LoginSteps {
     LoginPage loginPage;
 
     @Given("user has launched swag labs url")
-    public void launchGoogleUrl() {
+    public void launchSwagUrl() {
         loginPage.launchUrl();
     }
 
