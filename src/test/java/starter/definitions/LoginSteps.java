@@ -2,27 +2,31 @@ package starter.definitions;
 
 import io.cucumber.java.en.*;
 import net.serenitybdd.annotations.Steps;
-import net.thucydides.core.pages.PageObject;
 import starter.pages.LoginPage;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoginSteps extends PageObject {
+public class LoginSteps {
 
     @Steps
     LoginPage loginPage;
 
-    @Given("user has launched facebook url")
+    @Given("user has launched swag labs url")
     public void launchGoogleUrl() {
-        loginPage.launchUrlInChrome();
+        loginPage.launchUrl();
     }
 
-    @When("user validates the page title")
+    @Then("user validates the page title")
     public void validatePageTitle() {
-        loginPage.verifyPageTitle();
+        assertThat(loginPage.verifyPageTitle()).isEqualTo("Swag Labs");
     }
 
-    @Then("user validates the search in google")
-    public void validateGoogleSearch() {
-        assertThat(loginPage.validateFacebookLogin()).isTrue();
+    @When("user enters the standard user credentials")
+    public void enterStandardUserCredentials() {
+        loginPage.loginAsStandardUser();
+    }
+
+    @Then("user validates the product page is displayed")
+    public void verifyProductPageIsDisplayed() {
+        assertThat(loginPage.verifyProductsPageIsDisplayedAfterLogin()).isEqualTo("Products");
     }
 }

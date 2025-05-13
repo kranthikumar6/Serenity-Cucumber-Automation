@@ -1,45 +1,45 @@
 package starter.pages;
 
-import net.thucydides.core.pages.PageObject;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import java.time.Duration;
 
 public class LoginPage extends PageObject {
 
-    String facebookUrl = "https://www.facebook.com/";
+    String swagLabs = "https://www.saucedemo.com/v1/";
 
-    @FindBy(xpath = "//input[@name='email']")
-    WebElementFacade emailInputTextBox;
+    @FindBy(xpath = "//input[@name='user-name']")
+    WebElementFacade userNameInput;
 
-    @FindBy(xpath = "//input[@name='pass']")
-    WebElementFacade passwordInputTextBox;
+    @FindBy(xpath = "//input[@name='password']")
+    WebElementFacade passwordInput;
 
-    @FindBy(xpath = "//button[@name='login']")
+    @FindBy(xpath = "//input[@id='login-button']")
     WebElementFacade loginButton;
 
-    @FindBy(xpath = "//div[contains(text(),\"The email address you entered isn't connected to an account. \")]")
-    WebElementFacade errorMessage;
+    @FindBy(xpath = "//div[@class='product_label']")
+    WebElementFacade productsHeader;
 
-    public void launchUrlInChrome() {
-        getDriver().get(facebookUrl);
+    public void launchUrl() {
+        getDriver().get(swagLabs);
         getDriver().manage().window().maximize();
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofMillis(50000));
     }
 
-    public void verifyPageTitle() {
-        System.out.println("INFO!!: Page Title : " + getDriver().getTitle());
+    public String verifyPageTitle() {
+        return getDriver().getTitle();
     }
 
-    public boolean validateFacebookLogin() {
-        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofMillis(60000));
-        emailInputTextBox.waitUntilVisible().waitUntilClickable().click();
-        emailInputTextBox.sendKeys("webautomation@gmail.com");
-        passwordInputTextBox.waitUntilVisible().waitUntilClickable().click();
-        passwordInputTextBox.sendKeys("WebAutomation123");
-        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofMillis(30000));
+    public void loginAsStandardUser() {
+        userNameInput.waitUntilClickable().click();
+        userNameInput.sendKeys("standard_user");
+        passwordInput.waitUntilClickable().click();
+        passwordInput.sendKeys("secret_sauce");
         loginButton.waitUntilClickable().click();
-        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofMillis(30000));
-        return errorMessage.waitUntilVisible().isDisplayed();
+    }
+
+    public String verifyProductsPageIsDisplayedAfterLogin() {
+        return productsHeader.waitUntilVisible().getText();
     }
 }
