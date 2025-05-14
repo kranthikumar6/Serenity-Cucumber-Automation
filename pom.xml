@@ -13,11 +13,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>4.2.22</serenity.version>
         <junit.version>4.13.2</junit.version>
-        <maven.failsafe.plugin.version>3.2.3</maven.failsafe.plugin.version>
-        <maven.surefire.plugin.version>3.2.3</maven.surefire.plugin.version>
-        <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
+        <assertj.version>3.27.3</assertj.version>
+        <apache.commons.version>4.5.0</apache.commons.version>
+        <maven.failsafe.plugin.version>3.5.3</maven.failsafe.plugin.version>
+        <maven.surefire.plugin.version>3.5.3</maven.surefire.plugin.version>
+        <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <java.version>17</java.version>
-        <webdriver.driver>chrome</webdriver.driver>
         <executionThreadCount>1</executionThreadCount>
         <tags></tags>
     </properties>
@@ -68,13 +69,13 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.23.1</version>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.2</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${apache.commons.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -104,9 +105,6 @@
                     <includes>
                         <include>**/*TestSuite.java</include>
                     </includes>
-                    <systemPropertyVariables>
-                        <webdriver.driver>${webdriver.driver}</webdriver.driver>
-                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
